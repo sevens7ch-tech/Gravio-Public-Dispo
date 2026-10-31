@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+    Copyright © 2026 Christian Haake. Alle Rechte vorbehalten.
+    Link-Seite zum Freischalten: öffnet GravioLOG Public auf dem Android-Handy und trägt den Freischaltcode ein.
+    Der Code steht nur hinter dem #-Zeichen und wird nicht an den Server gesendet. Er passt nur zu einem Gerät.
+-->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="GravioLOG Public freischalten">
+<meta property="og:description" content="Antippen – GravioLOG Public öffnet sich und wird freigeschaltet.">
+<meta property="og:type" content="website">
+<title>GravioLOG Public freischalten</title>
+<style>
+  :root { --bg: #0c0f0d; --panel: #161b18; --line: #2b332e; --ink: #ecf1ee; --muted: #98a59e; --accent: #fbbf24; --accent-ink: #1c1405; --warn: #fbbf24; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body { background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    padding: max(24px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+    display: grid; place-items: center; }
+  main { width: 100%; max-width: 420px; display: grid; gap: 18px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; gap: 10px; }
+  h1 { font-size: 22px; margin: 0; line-height: 1.2; }
+  .eyebrow { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  code { display: block; font-size: 12px; word-break: break-all; color: var(--muted); background: #0f1311; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+  a.btn { display: block; text-align: center; background: var(--accent); color: var(--accent-ink); text-decoration: none; font-weight: 700; font-size: 17px; padding: 16px; border-radius: 12px; }
+  .hint { color: var(--muted); font-size: 13px; margin: 0; }
+  .warn { color: var(--warn); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <span class="eyebrow">GravioLOG Public · Freischaltung</span>
+    <h1 id="title">App freischalten</h1>
+    <p class="hint">Der Code passt nur zu dem Gerät, für das er erstellt wurde.</p>
+    <code id="code"></code>
+  </div>
+  <a class="btn" id="open" href="#">In GravioLOG Public freischalten</a>
+  <p class="hint" id="hint">GravioLOG Public öffnet sich, trägt den Code ein und schaltet frei. Falls sich nichts tut: neueste Version installieren und den Code oben in der App unter Menü → Freischalten einfügen.</p>
+  <p class="hint warn" id="desktop" hidden>Diesen Link bitte auf dem Android-Handy mit GravioLOG Public öffnen.</p>
+  <p class="hint warn" id="error" hidden>Im Link steht kein gültiger Freischaltcode. Bitte den Code neu anfordern.</p>
+</main>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const c = (new URLSearchParams(location.hash.slice(1)).get('c') || '').trim();
+  if (!/^GPC2?-(?:[0-9]{8}-)?[A-Za-z0-9_-]{20,}$/.test(c)) { $('error').hidden = false; $('open').hidden = true; $('hint').hidden = true; $('title').textContent = 'Kein Freischaltcode im Link'; return; }
+  $('code').textContent = c;
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const q = 'freischalten?c=' + encodeURIComponent(c);
+  const appUrl = 'graviopublic://' + q;
+  const intentUrl = 'intent://' + q + '#Intent;scheme=graviopublic;package=de.haake.graviopublic;end';
+  $('open').href = isAndroid ? intentUrl : appUrl;
+  if (!isAndroid) { $('desktop').hidden = false; return; }
+  setTimeout(() => { location.href = intentUrl; }, 300);
+})();
+</script>
+</body>
+</html>
