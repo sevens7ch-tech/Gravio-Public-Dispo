@@ -46,11 +46,13 @@
   <a class="btn" id="open" href="#">In GravioLOG Public öffnen</a>
   <p class="hint" id="hint">GravioLOG Public übernimmt den Auftrag ins Formular. Falls sich nichts tut: neueste GravioLOG-Public-Version installieren (ab 1.0.24).</p>
   <p class="hint warn" id="desktop" hidden>Diesen Link bitte auf dem Android-Handy mit GravioLOG Public öffnen.</p>
-  <p class="hint warn" id="error" hidden>Der Link ist unvollständig. Bitte den Disponenten bitten, den Auftrag neu zu senden.</p>
+  <p class="hint warn" id="error" hidden>Der Link ist unvollständig. Bitte den Disponenten bitten, den Auftrag neu zu senden.<br><br>Disponenten: <a href="https://gravio-public-dispo.sevens7-ch.workers.dev/">zur GravioLOG Public Dispo</a></p>
 </main>
 <script>
+const PUBLIC_DISPO_URL = "https://gravio-public-dispo.sevens7-ch.workers.dev/";
 (() => {
   const $ = id => document.getElementById(id);
+  if (!location.hash || location.hash === '#') { location.replace(PUBLIC_DISPO_URL); return; }
   const d = new URLSearchParams(location.hash.slice(1)).get('d') || '';
   if (!/^e[A-Za-z0-9_-]+$/.test(d)) { $('error').hidden = false; $('open').hidden = true; $('hint').hidden = true; $('title').textContent = 'Kein Auftrag im Link'; return; }
 
