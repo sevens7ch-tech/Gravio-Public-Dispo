@@ -1,6 +1,6 @@
 # GravioLOG Public Dispo
 
-- `dispo/` – GravioLOG Public Dispo: Auftrag am PC erfassen und per WhatsApp an die Gravio-Public-App senden
+- `dispo/` – Weiterleitung: GravioLOG Public Dispo läuft jetzt hinter Lizenzprüfung unter https://gravio-public-dispo.sevens7-ch.workers.dev/ (ein hier schon eingetragener Freischaltcode wird mitgenommen)
 - `index.html` – Link-Seite: öffnet den Auftrag auf dem Android-Handy in GravioLOG Public (`graviopublic://auftrag`)
 - `freischalten/` – Link-Seite: trägt den Freischaltcode in GravioLOG Public ein (`graviopublic://freischalten`)
 - `code/` – Link-Seite für Freischaltcode-Anfragen aus der App: öffnet GravioLOG Public Code und trägt Geräte-Nummer
